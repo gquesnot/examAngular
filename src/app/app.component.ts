@@ -7,21 +7,19 @@ import {TranslateService} from "@ngx-translate/core";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'examAngular';
+  title:string = 'examAngular';
   translateService: TranslateService;
-  currentLanguage = 'en';
-  languages = ['en', 'fr', 'es'];
+  currentLanguage:string = 'en';
+  languages: string[]= ['en', 'fr', 'es'];
 
   constructor(translate: TranslateService) {
     this.translateService = translate;
     this.translateService.setDefaultLang('en')
     let storageLang = localStorage.getItem('selectedLanguage');
-    if (storageLang != null) {
+    if (storageLang && storageLang in this.languages){
       this.currentLanguage = storageLang;
-    } else if (navigator.language != null) {
-      if (navigator.language in this.languages) {
-        this.currentLanguage = navigator.language;
-      }
+    } else if (navigator.language && navigator.language in this.languages) {
+      this.currentLanguage = navigator.language;
     }
     this.languageUpdated()
 
